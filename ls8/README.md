@@ -20,12 +20,12 @@ then prints it out:
 ```
 # print8.ls8: Print the number 8 on the screen
 
-10000010 # LDI R0,8
-00000000
-00001000
-01000111 # PRN R0
-00000000
-00000001 # HLT
+10000010 # LDI R0,8 // _opcode_
+00000000 // _operands_ represents R0
+00001000 // _operands_ represents value
+01000111 # PRN R0 // _opcode_
+00000000 // _operands_ represents R0
+00000001 # HLT // HALT
 ```
 
 The binary numeric value on the left in the `print8.ls8` code above is either:
@@ -83,8 +83,7 @@ value of the stack pointer.
 
 ## Step 2: Add RAM functions
 
-In `CPU`, add method `ram_read()` and `ram_write()` that access the RAM inside
-the `CPU` object.
+***In `CPU`, add method `ram_read()` and `ram_write()` that access the RAM inside the `CPU` object***
 
 `ram_read()` should accept the address to read and return the value stored
 there.
@@ -117,6 +116,7 @@ memory to perform operations on. Sometimes the byte value is a register number,
 other times it's a constant value (in the case of `LDI`). Using `ram_read()`,
 read the bytes at `PC+1` and `PC+2` from RAM into variables `operand_a` and
 `operand_b` in case the instruction needs them.
+#WHAT??
 
 Then, depending on the value of the opcode, perform the actions needed for the
 instruction per the LS-8 spec. Maybe an `if-elif` cascade...? There are other
@@ -132,9 +132,7 @@ The number of bytes an instruction uses can be determined from the two high bits
 Add the `HLT` instruction definition to `cpu.py` so that you can refer to it by
 name instead of by numeric value.
 
-In `run()` in your switch, exit the loop if a `HLT` instruction is encountered,
-regardless of whether or not there are more lines of code in the LS-8 program
-you loaded. 
+***In `run()` in your switch, exit the loop if a `HLT` instruction is encountered,regardless of whether or not there are more lines of code in the LS-8 program you loaded.***
 
 We can consider `HLT` to be similar to Python's `exit()` in that we stop
 whatever we are doing, wherever we are.
