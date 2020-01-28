@@ -76,6 +76,35 @@ class CPU:
     def run(self):
         """Run the CPU."""
 
+        #check for halted
+        halted = False
         # run while loop and conditionals
+        while not halted:
+            instruction = self.ram[self.pc]
 
-        pass
+            if instruction == 0b10000010: # LDI
+                reg_number = self.ram_read(self.pc + 1)
+                value = self.ram_read(self.pc +2)
+
+                self.reg[reg_number] = value
+
+                self.pc += 3 #should be 3
+
+            elif instruction == 0b01000111: # PRN
+                reg_number = self.ram_read(self.pc +1)
+                print(self.reg[reg_number])
+                self.pc += 2
+
+            #condition for HALT
+            elif instruction == 0b00000001: # HLT
+                halted = True
+
+                self.pc += 1
+
+            else:
+                print(f"Unknown instructions at index {self.pc}")
+                sys.exit(1)
+
+        ##syntax and indent block clean up. NOTE TO SELF be mindful
+        # pass
+        # pass
